@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -34,10 +34,8 @@ jobs:
           # Find the workspace name dynamically
           WORKSPACE_NAME=$(basename *.xcworkspace .xcworkspace)
           
-          # Run xcodebuild and disable code signing
           xcodebuild -workspace *.xcworkspace -scheme "$WORKSPACE_NAME" -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_ENTITLEMENTS=""
           
-          # Create Payload folder and zip it
           mkdir -p Payload
           mv build/Build/Products/Release-iphoneos/*.app Payload/
           zip -r app-unsigned.ipa Payload
