@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Expo Prebuild (generate native iOS project)
-        run: npx expo prebuild --platform ios --clean
+        run: npx expo prebuild --platform ios --clean --no-install
 
       - name: Install CocoaPods
         run: |
@@ -31,7 +31,11 @@ jobs:
       - name: Build unsigned IPA
         run: |
           cd ios
-          xcodebuild -workspace *.xcworkspace -scheme $(basename *.xcworkspace .xcworkspace) -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_ENTITLEMENTS=""
+          # Find the workspace name dynamically
+          WORKSPACE_NAME=$(basename *.xcworkspace .xcworkspace)
+          
+          xcodebuild -workspace *.xcworkspace -scheme "$WORKSPACE_NAME" -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_ENTITLEMENTS=""
+          
           mkdir -p Payload
           mv build/Build/Products/Release-iphoneos/*.app Payload/
           zip -r app-unsigned.ipa Payload
