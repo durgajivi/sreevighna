@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, SafeAreaView, StatusBar, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, SafeAreaView, StatusBar, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 
 import Dashboard from './Dashboard';
@@ -49,7 +49,7 @@ function SplashScreen({ navigation }) {
     <SafeAreaView style={styles.splashContainer}>
       <StatusBar backgroundColor={GREEN} barStyle="light-content" />
       <View style={styles.logoBox}>
-        <MaterialCommunityIcons name="heart-pulse" size={50} color={GREEN} />
+        <Image source={require('./assets/logo.png')} style={styles.splashLogo} resizeMode="contain" />
       </View>
       <Text style={styles.splashTitle}>SREE VIGHNESWARA PRADAS SEEDS</Text>
       <ActivityIndicator size="small" color="#fff" style={{ marginTop: 20 }} />
@@ -109,7 +109,7 @@ function LoginScreen({ navigation }) {
         <ScrollView contentContainerStyle={styles.loginScrollContainer} showsVerticalScrollIndicator={false}>
           <View style={styles.loginCard}>
             <View style={styles.loginLogoBox}>
-              <MaterialCommunityIcons name="heart-pulse" size={36} color={GREEN} />
+              <Image source={require('./assets/logo.png')} style={styles.loginLogo} resizeMode="contain" />
             </View>
             <Text style={styles.loginBrand}>SREE VIGHNESWARA PRADAS SEEDS</Text>
             <Text style={styles.loginSubText}>Sign in to your account</Text>
@@ -141,7 +141,7 @@ function LoginScreen({ navigation }) {
                   secureTextEntry={!showPassword}
                 />
                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={{ padding: 10 }}>
-                  <MaterialCommunityIcons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#6c757d" />
+                  <FontAwesome5 name={showPassword ? "eye-slash" : "eye"} size={18} color="#6c757d" />
                 </TouchableOpacity>
               </View>
 
@@ -188,13 +188,15 @@ export default function App() {
 
 const styles = StyleSheet.create({
   splashContainer: { flex: 1, backgroundColor: GREEN, alignItems: 'center', justifyContent: 'center' },
-  logoBox: { width: 90, height: 90, borderRadius: 22, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', marginBottom: 15, elevation: 5 },
-  splashTitle: { color: '#fff', fontSize: 20, fontWeight: '700', letterSpacing: 0.5 },
+  logoBox: { width: 100, height: 100, borderRadius: 22, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', marginBottom: 15, elevation: 5, padding: 8 },
+  splashLogo: { width: '100%', height: '100%' },
+  splashTitle: { color: '#fff', fontSize: 20, fontWeight: '700', letterSpacing: 0.5, textAlign: 'center', paddingHorizontal: 16 },
 
   loginSafeArea: { flex: 1, backgroundColor: '#f0f4f8' },
   loginScrollContainer: { flexGrow: 1, justifyContent: 'center', padding: 20 },
   loginCard: { backgroundColor: '#fff', padding: 24, borderRadius: 20, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 10, elevation: 4 },
-  loginLogoBox: { width: 65, height: 65, borderRadius: 16, backgroundColor: '#e8f5e9', alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
+  loginLogoBox: { width: 84, height: 84, borderRadius: 16, backgroundColor: '#e8f5e9', alignItems: 'center', justifyContent: 'center', marginBottom: 12, padding: 8 },
+  loginLogo: { width: '100%', height: '100%' },
   loginBrand: { fontSize: 20, fontWeight: '700', color: '#1a1a1a', textAlign: 'center' },
   loginSubText: { fontSize: 13, color: '#6c757d', marginBottom: 25, textAlign: 'center' },
 

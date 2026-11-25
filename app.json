@@ -13,7 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sreevighneswara.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -32,7 +36,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "807d9353-349d-4196-9224-aa41378b1947"
+        "projectId": "43c962cb-de90-4f75-84dc-6876d329753a"
       }
     }
   }
